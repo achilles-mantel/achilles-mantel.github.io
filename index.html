@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Calculator for Kids</title>
+    <meta name="description" content="A fun and educational time calculator for children aged 5-10 to learn about time calculations.">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏰</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⏰ Time Calculator ⏰</h1>
+            <p class="subtitle">Learn about time with this fun calculator!</p>
+        </header>
+        
+        <main>
+            <section class="calculator">
+                <div class="input-group">
+                    <label for="time-input-1">Time 1:</label>
+                    <input type="text" id="time-input-1" placeholder="HH:MM:SS" autocomplete="off">
+                    <p class="input-hint">Example: 01:30:45 (1 hour, 30 minutes, 45 seconds)</p>
+                </div>
+                
+                <div class="operations">
+                    <button class="operation-btn selected" data-operation="add">
+                        <span class="symbol">+</span> Add
+                    </button>
+                    <button class="operation-btn" data-operation="subtract">
+                        <span class="symbol">-</span> Subtract
+                    </button>
+                    <button class="operation-btn" data-operation="multiply">
+                        <span class="symbol">×</span> Multiply
+                    </button>
+                    <button class="operation-btn" data-operation="divide">
+                        <span class="symbol">÷</span> Divide
+                    </button>
+                </div>
+                
+                <div class="input-group">
+                    <label for="time-input-2" id="second-input-label">Time 2:</label>
+                    <input type="text" id="time-input-2" placeholder="HH:MM:SS" autocomplete="off">
+                    <p class="input-hint">For add/subtract: use time format (HH:MM:SS). For multiply/divide: use a number.</p>
+                </div>
+                
+                <div class="calculate-btn-container">
+                    <button id="calculate-btn">Calculate!</button>
+                </div>
+                
+                <div id="error-message" class="error-message hidden"></div>
+                
+                <div id="result-display" class="result hidden">
+                    <h3>Result:</h3>
+                    <div id="result-text">00:00:00</div>
+                    <div id="result-formatted"></div>
+                </div>
+            </section>
+            
+            <section id="history-container" class="history hidden">
+                <h2>📝 Calculation History</h2>
+                <div id="history-list" class="history-list"></div>
+                <button id="clear-history-btn" class="clear-history-btn">Clear History</button>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Time Calculator - An educational tool for children to learn about time calculations</p>
+        </footer>
+    </div>
+    
+    <!-- JavaScript Files -->
+    <script src="js/validator.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/formatter.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
