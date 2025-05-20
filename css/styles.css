@@ -51,6 +51,45 @@ h1 {
     margin-top: 10px;
 }
 
+/* Header Styles */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.main-nav {
+    margin-top: 15px;
+}
+
+.feature-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    transition: var(--transition);
+    box-shadow: 0 3px 0 #e0a800;
+}
+
+.feature-link:hover {
+    background-color: #ffce3a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #e0a800;
+}
+
+.feature-link:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 #e0a800;
+}
+
 /* Calculator Styles */
 .calculator {
     background-color: white;

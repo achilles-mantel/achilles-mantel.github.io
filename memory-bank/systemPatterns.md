@@ -1,8 +1,9 @@
 # System Patterns
 
 ## System Architecture
-The Time Calculator follows a simple client-side architecture with the following components:
+The application now consists of two main features: the Time Calculator and the Integer Multiplication Exercise. Both follow a similar client-side architecture pattern but are implemented as separate modules.
 
+### Time Calculator Architecture
 ```mermaid
 graph TD
     UI[User Interface] --> Calculator[Calculator Logic]
@@ -13,6 +14,16 @@ graph TD
     Formatter --> Validator
 ```
 
+### Integer Multiplication Exercise Architecture
+```mermaid
+graph TD
+    UICTL[UI Controller] --> Generator[Question Generator]
+    UICTL --> HistoryMgr[History Manager]
+    UICTL --> SoundMgr[Sound Manager]
+    Generator --> HistoryMgr
+    SoundMgr --> UICTL
+```
+
 ## Key Technical Decisions
 1. **Client-Side Processing**: All calculations are performed client-side using JavaScript to ensure quick response times and eliminate the need for server infrastructure.
 2. **Modular Design**: The system is built with a modular approach to separate concerns and make the code maintainable.
@@ -20,6 +31,9 @@ graph TD
 4. **Local Storage**: User calculation history is stored in the browser's local storage to enable persistence without requiring user accounts.
 5. **Error Handling**: Comprehensive error handling is implemented for browser APIs and edge cases.
 6. **Dependency Management**: Careful attention to avoid circular dependencies between modules.
+7. **Feature Separation**: New features are implemented in separate directories with their own modules to maintain clean architecture.
+8. **Sound Integration**: Sound effects are implemented to enhance user engagement, with controls to enable/disable them.
+9. **Responsive Design**: All features are designed to work on various devices including phones and tablets.
 
 ## Design Patterns
 1. **Module Pattern**: Each component is encapsulated in its own class to avoid polluting the global namespace.
@@ -27,8 +41,12 @@ graph TD
 3. **Observer Pattern**: Event listeners are used to update the UI when user interactions occur.
 4. **Factory Pattern**: The Storage class creates calculation objects with unique IDs and timestamps.
 5. **Facade Pattern**: The UI class provides a simplified interface to the underlying components.
+6. **Iterator Pattern**: Used in the Multiplication Exercise to navigate through questions.
+7. **Command Pattern**: Used for handling button clicks and user interactions in both features.
 
 ## Component Relationships
+
+### Time Calculator Components
 1. **User Interface (UI)**:
    - Collects user inputs
    - Displays calculation results
@@ -60,6 +78,32 @@ graph TD
    - Manages local storage with error handling
    - Provides graceful degradation when storage is unavailable
 
+### Integer Multiplication Exercise Components
+1. **UI Controller**:
+   - Manages the user interface for the multiplication exercise
+   - Handles DOM interactions and updates
+   - Coordinates between other components
+   - Displays questions and answers
+   - Manages navigation between questions
+
+2. **Question Generator**:
+   - Generates random 3-digit by 3-digit multiplication questions
+   - Manages the current question set
+   - Provides navigation between questions
+   - Calculates answers
+
+3. **History Manager**:
+   - Saves question history to local storage
+   - Retrieves past questions
+   - Formats timestamps for display
+   - Handles storage errors and quota exceeded issues
+
+4. **Sound Manager**:
+   - Plays sound effects for user interactions
+   - Manages sound preferences (on/off)
+   - Handles browser audio API compatibility
+   - Creates placeholder audio elements if needed
+
 ## Critical Implementation Paths
 1. **Time Parsing and Validation**:
    - Parse user input into standardized time format
@@ -85,11 +129,24 @@ graph TD
    - Allow reloading previous calculations
    - Support deleting individual or all history items
 
+5. **Multiplication Question Generation**:
+   - Generate random 3-digit numbers
+   - Calculate multiplication results
+   - Create question objects with unique IDs
+   - Manage question set navigation
+
+6. **Sound Effect Integration**:
+   - Load and play sound effects at appropriate times
+   - Handle browser audio API limitations
+   - Provide fallbacks when audio is not supported
+   - Save user sound preferences
+
 ## Error Handling Approach
 1. **Input Validation**:
    - Validate time formats using regular expressions
    - Check for extreme values that could cause performance issues
    - Provide clear, child-friendly error messages
+   - Prevent invalid inputs in the multiplication exercise
 
 2. **Storage Error Handling**:
    - Check for local storage availability
@@ -101,3 +158,15 @@ graph TD
    - Prevent division by zero
    - Handle invalid number inputs
    - Manage negative time results appropriately
+   - Handle potential overflow in large multiplication operations
+
+## Feature Integration
+1. **Navigation Between Features**:
+   - Links between Time Calculator and Multiplication Exercise
+   - Consistent UI elements across features
+   - Shared styling patterns for cohesive experience
+
+2. **Shared Resources**:
+   - Common CSS variables for consistent styling
+   - Similar error handling approaches
+   - Consistent local storage management patterns
