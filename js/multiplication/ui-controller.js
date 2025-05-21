@@ -24,6 +24,8 @@ class UIController {
             firstNumber: document.getElementById('first-number'),
             secondNumber: document.getElementById('second-number'),
             answer: document.getElementById('answer'),
+            userAnswer: document.getElementById('user-answer'),
+            checkAnswerBtn: document.getElementById('check-answer-btn'),
             showAnswerBtn: document.getElementById('show-answer-btn'),
             prevBtn: document.getElementById('prev-btn'),
             nextBtn: document.getElementById('next-btn'),
@@ -36,6 +38,7 @@ class UIController {
         
         this.correctAnswers = 0;
         this.answerShown = false;
+        this.answeredQuestions = new Set(); // Track which questions have been answered
     }
     
     /**
@@ -45,6 +48,18 @@ class UIController {
         // Generate button click
         this.elements.generateBtn.addEventListener('click', () => {
             this.generateQuestions();
+        });
+        
+        // Check answer button click
+        this.elements.checkAnswerBtn.addEventListener('click', () => {
+            this.checkAnswer();
+        });
+        
+        // User answer input enter key
+        this.elements.userAnswer.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                this.checkAnswer();
+            }
         });
         
         // Show answer button click
@@ -78,8 +93,9 @@ class UIController {
         // Generate questions
         const questions = this.generator.generateQuestionSet();
         
-        // Reset correct answers count
+        // Reset correct answers count and answered questions
         this.correctAnswers = 0;
+        this.answeredQuestions = new Set();
         this.updateCorrectCount();
         
         // Show the first question
@@ -93,6 +109,11 @@ class UIController {
         
         // Update history display
         this.updateHistoryDisplay();
+        
+        // Focus the user answer input
+        setTimeout(() => {
+            this.elements.userAnswer.focus();
+        }, 100);
     }
     
     /**
@@ -122,9 +143,70 @@ class UIController {
         // Update answer text
         this.elements.answer.textContent = question.answer;
         
+        // Reset user answer input
+        this.elements.userAnswer.value = '';
+        this.elements.userAnswer.classList.remove('correct', 'incorrect');
+        
         // Update navigation buttons
         this.elements.prevBtn.disabled = !this.generator.hasPreviousQuestion();
         this.elements.nextBtn.disabled = !this.generator.hasNextQuestion();
+    }
+    
+    /**
+     * Check the user's answer against the correct answer
+     */
+    checkAnswer() {
+        // Play click sound
+        this.soundManager.playClickSound();
+        
+        const currentQuestion = this.generator.getCurrentQuestion();
+        if (!currentQuestion) {
+            return;
+        }
+        
+        // Get the user's answer
+        const userAnswer = parseInt(this.elements.userAnswer.value);
+        
+        // Check if the answer is valid
+        if (isNaN(userAnswer)) {
+            alert('Please enter a valid number');
+            this.elements.userAnswer.focus();
+            return;
+        }
+        
+        // Get the correct answer
+        const correctAnswer = currentQuestion.answer;
+        
+        // Check if the answer is correct
+        const isCorrect = userAnswer === correctAnswer;
+        
+        // Update the input field styling
+        this.elements.userAnswer.classList.remove('correct', 'incorrect');
+        this.elements.userAnswer.classList.add(isCorrect ? 'correct' : 'incorrect');
+        
+        // Play sound based on result
+        if (isCorrect) {
+            this.soundManager.playCorrectSound();
+            
+            // Only increment correct count if this is the first time answering correctly
+            const questionId = currentQuestion.id;
+            if (!this.answeredQuestions.has(questionId)) {
+                this.correctAnswers++;
+                this.updateCorrectCount();
+                this.answeredQuestions.add(questionId);
+            }
+        }
+        
+        // Show the correct answer
+        this.elements.answer.classList.remove('hidden');
+        this.elements.showAnswerBtn.textContent = 'Hide Answer';
+        this.answerShown = true;
+        
+        // Clear the input field and focus it for the next answer
+        setTimeout(() => {
+            this.elements.userAnswer.value = '';
+            this.elements.userAnswer.focus();
+        }, 1500);
     }
     
     /**
@@ -139,13 +221,6 @@ class UIController {
             this.elements.answer.classList.remove('hidden');
             this.elements.showAnswerBtn.textContent = 'Hide Answer';
             this.answerShown = true;
-            
-            // Play correct sound
-            this.soundManager.playCorrectSound();
-            
-            // Increment correct answers count
-            this.correctAnswers++;
-            this.updateCorrectCount();
         } else {
             // Hide the answer
             this.elements.answer.classList.add('hidden');

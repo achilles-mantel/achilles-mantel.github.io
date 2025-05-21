@@ -186,6 +186,42 @@ nav {
     margin-bottom: 15px;
 }
 
+.user-answer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.user-answer-input {
+    padding: 10px;
+    font-size: 1.5rem;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-family: inherit;
+}
+
+.user-answer-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(50, 205, 50, 0.3);
+}
+
+.user-answer-input.correct {
+    border-color: var(--accent-color);
+    background-color: rgba(50, 205, 50, 0.1);
+}
+
+.user-answer-input.incorrect {
+    border-color: var(--error-color);
+    background-color: rgba(255, 90, 95, 0.1);
+}
+
 .secondary-btn {
     padding: 10px 20px;
     font-size: 1.1rem;
