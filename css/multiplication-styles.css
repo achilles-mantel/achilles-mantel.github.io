@@ -129,8 +129,21 @@ nav {
     color: var(--primary-color);
 }
 
-#correct-count {
-    color: var(--accent-color);
+.history-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.history-toggle label {
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.history-toggle input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
 }
 
 /* Exercise Container */
@@ -418,6 +431,82 @@ footer {
         padding: 12px 20px;
         font-size: 1.1rem;
     }
+}
+
+/* Results Summary */
+.results-summary {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.results-summary h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.results-table th, 
+.results-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.results-table th {
+    background-color: var(--light-bg);
+    font-weight: bold;
+    text-align: left;
+}
+
+.results-table tr:last-child td {
+    border-bottom: none;
+}
+
+.results-table .correct {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.results-table .incorrect {
+    color: var(--error-color);
+    font-weight: bold;
+}
+
+.results-summary .total-score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--light-bg);
+    border-radius: var(--border-radius);
+}
+
+.try-again-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    font-weight: bold;
+}
+
+.try-again-btn:hover {
+    background-color: #28a428;
+    transform: translateY(-2px);
 }
 
 /* Accessibility Enhancements */

@@ -83,14 +83,18 @@ graph TD
    - Manages the user interface for the multiplication exercise
    - Handles DOM interactions and updates
    - Coordinates between other components
-   - Displays questions and answers
+   - Displays questions and processes user answers
    - Manages navigation between questions
+   - Shows results summary at the end of the exercise
+   - Handles history visibility toggling
 
 2. **Question Generator**:
    - Generates random 3-digit by 3-digit multiplication questions
    - Manages the current question set
    - Provides navigation between questions
    - Calculates answers
+   - Tracks user answers and comparison results
+   - Calculates score based on correct answers
 
 3. **History Manager**:
    - Saves question history to local storage

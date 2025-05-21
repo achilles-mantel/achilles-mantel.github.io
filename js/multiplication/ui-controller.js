@@ -25,20 +25,20 @@ class UIController {
             secondNumber: document.getElementById('second-number'),
             answer: document.getElementById('answer'),
             userAnswer: document.getElementById('user-answer'),
-            checkAnswerBtn: document.getElementById('check-answer-btn'),
-            showAnswerBtn: document.getElementById('show-answer-btn'),
             prevBtn: document.getElementById('prev-btn'),
             nextBtn: document.getElementById('next-btn'),
             currentQuestion: document.getElementById('current-question'),
-            correctCount: document.getElementById('correct-count'),
             historyContainer: document.getElementById('history-container'),
             historyList: document.getElementById('history-list'),
-            clearHistoryBtn: document.getElementById('clear-history-btn')
+            clearHistoryBtn: document.getElementById('clear-history-btn'),
+            historyToggle: document.getElementById('history-toggle-checkbox'),
+            resultsSummary: document.getElementById('results-summary'),
+            resultsBody: document.getElementById('results-body'),
+            score: document.getElementById('score'),
+            tryAgainBtn: document.getElementById('try-again-btn')
         };
         
-        this.correctAnswers = 0;
         this.answerShown = false;
-        this.answeredQuestions = new Set(); // Track which questions have been answered
     }
     
     /**
@@ -50,21 +50,16 @@ class UIController {
             this.generateQuestions();
         });
         
-        // Check answer button click
-        this.elements.checkAnswerBtn.addEventListener('click', () => {
-            this.checkAnswer();
-        });
-        
-        // User answer input enter key
+        // User answer input events
         this.elements.userAnswer.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
-                this.checkAnswer();
+                this.handleNextButtonClick();
             }
         });
         
-        // Show answer button click
-        this.elements.showAnswerBtn.addEventListener('click', () => {
-            this.showAnswer();
+        // Enable/disable next button based on input
+        this.elements.userAnswer.addEventListener('input', () => {
+            this.updateNextButtonState();
         });
         
         // Previous button click
@@ -74,12 +69,22 @@ class UIController {
         
         // Next button click
         this.elements.nextBtn.addEventListener('click', () => {
-            this.showNextQuestion();
+            this.handleNextButtonClick();
         });
         
         // Clear history button click
         this.elements.clearHistoryBtn.addEventListener('click', () => {
             this.clearHistory();
+        });
+        
+        // History toggle checkbox
+        this.elements.historyToggle.addEventListener('change', () => {
+            this.toggleHistoryVisibility();
+        });
+        
+        // Try again button click
+        this.elements.tryAgainBtn.addEventListener('click', () => {
+            this.resetExercise();
         });
     }
     
@@ -93,10 +98,8 @@ class UIController {
         // Generate questions
         const questions = this.generator.generateQuestionSet();
         
-        // Reset correct answers count and answered questions
-        this.correctAnswers = 0;
-        this.answeredQuestions = new Set();
-        this.updateCorrectCount();
+        // Hide results summary if visible
+        this.elements.resultsSummary.classList.add('hidden');
         
         // Show the first question
         this.showQuestion(this.generator.getCurrentQuestion());
@@ -137,25 +140,32 @@ class UIController {
         
         // Hide answer
         this.elements.answer.classList.add('hidden');
-        this.elements.showAnswerBtn.textContent = 'Show Answer';
         this.answerShown = false;
         
         // Update answer text
         this.elements.answer.textContent = question.answer;
         
-        // Reset user answer input
-        this.elements.userAnswer.value = '';
-        this.elements.userAnswer.classList.remove('correct', 'incorrect');
+        // Set user answer input if it exists for this question
+        if (question.userAnswer !== null) {
+            this.elements.userAnswer.value = question.userAnswer;
+            this.elements.userAnswer.classList.add(question.isCorrect ? 'correct' : 'incorrect');
+        } else {
+            // Reset user answer input
+            this.elements.userAnswer.value = '';
+            this.elements.userAnswer.classList.remove('correct', 'incorrect');
+        }
         
         // Update navigation buttons
         this.elements.prevBtn.disabled = !this.generator.hasPreviousQuestion();
-        this.elements.nextBtn.disabled = !this.generator.hasNextQuestion();
+        
+        // Next button is disabled if no answer is entered
+        this.updateNextButtonState();
     }
     
     /**
-     * Check the user's answer against the correct answer
+     * Handle the next button click
      */
-    checkAnswer() {
+    handleNextButtonClick() {
         // Play click sound
         this.soundManager.playClickSound();
         
@@ -165,20 +175,25 @@ class UIController {
         }
         
         // Get the user's answer
-        const userAnswer = parseInt(this.elements.userAnswer.value);
+        const userAnswer = this.elements.userAnswer.value.trim();
         
         // Check if the answer is valid
-        if (isNaN(userAnswer)) {
+        if (!userAnswer) {
+            alert('Please enter your answer');
+            this.elements.userAnswer.focus();
+            return;
+        }
+        
+        // Convert to number and check if valid
+        const numericAnswer = Number(userAnswer);
+        if (isNaN(numericAnswer)) {
             alert('Please enter a valid number');
             this.elements.userAnswer.focus();
             return;
         }
         
-        // Get the correct answer
-        const correctAnswer = currentQuestion.answer;
-        
-        // Check if the answer is correct
-        const isCorrect = userAnswer === correctAnswer;
+        // Set the user's answer and check if correct
+        const isCorrect = this.generator.setUserAnswer(numericAnswer);
         
         // Update the input field styling
         this.elements.userAnswer.classList.remove('correct', 'incorrect');
@@ -187,45 +202,31 @@ class UIController {
         // Play sound based on result
         if (isCorrect) {
             this.soundManager.playCorrectSound();
-            
-            // Only increment correct count if this is the first time answering correctly
-            const questionId = currentQuestion.id;
-            if (!this.answeredQuestions.has(questionId)) {
-                this.correctAnswers++;
-                this.updateCorrectCount();
-                this.answeredQuestions.add(questionId);
-            }
         }
         
-        // Show the correct answer
-        this.elements.answer.classList.remove('hidden');
-        this.elements.showAnswerBtn.textContent = 'Hide Answer';
-        this.answerShown = true;
-        
-        // Clear the input field and focus it for the next answer
-        setTimeout(() => {
-            this.elements.userAnswer.value = '';
-            this.elements.userAnswer.focus();
-        }, 1500);
+        // Check if this is the last question
+        if (!this.generator.hasNextQuestion()) {
+            // If it's the last question, show the results summary
+            this.showResultsSummary();
+        } else {
+            // Move to the next question
+            this.showNextQuestion();
+        }
     }
     
     /**
-     * Show the answer for the current question
+     * Update the next button state based on whether an answer is entered
      */
-    showAnswer() {
-        // Play click sound
-        this.soundManager.playClickSound();
+    updateNextButtonState() {
+        const userAnswer = this.elements.userAnswer.value.trim();
+        const currentQuestion = this.generator.getCurrentQuestion();
         
-        if (!this.answerShown) {
-            // Show the answer
-            this.elements.answer.classList.remove('hidden');
-            this.elements.showAnswerBtn.textContent = 'Hide Answer';
-            this.answerShown = true;
+        if (currentQuestion && currentQuestion.userAnswer !== null) {
+            // If the question has already been answered, enable the next button
+            this.elements.nextBtn.disabled = false;
         } else {
-            // Hide the answer
-            this.elements.answer.classList.add('hidden');
-            this.elements.showAnswerBtn.textContent = 'Show Answer';
-            this.answerShown = false;
+            // Otherwise, enable only if there's an answer entered
+            this.elements.nextBtn.disabled = !userAnswer;
         }
     }
     
@@ -233,9 +234,6 @@ class UIController {
      * Show the next question
      */
     showNextQuestion() {
-        // Play click sound
-        this.soundManager.playClickSound();
-        
         const nextQuestion = this.generator.nextQuestion();
         if (nextQuestion) {
             this.showQuestion(nextQuestion);
@@ -256,10 +254,92 @@ class UIController {
     }
     
     /**
-     * Update the correct answers count display
+     * Show the results summary
      */
-    updateCorrectCount() {
-        this.elements.correctCount.textContent = `Correct: ${this.correctAnswers}`;
+    showResultsSummary() {
+        // Hide the exercise container
+        this.elements.exerciseContainer.classList.add('hidden');
+        
+        // Clear the results body
+        this.elements.resultsBody.innerHTML = '';
+        
+        // Get all questions
+        const questions = this.generator.questions;
+        
+        // Count correct answers
+        const correctCount = this.generator.getCorrectAnswersCount();
+        
+        // Update the score
+        this.elements.score.textContent = correctCount;
+        
+        // Add each question to the results table
+        questions.forEach((question, index) => {
+            const row = document.createElement('tr');
+            
+            // Question number
+            const numCell = document.createElement('td');
+            numCell.textContent = index + 1;
+            row.appendChild(numCell);
+            
+            // Problem
+            const problemCell = document.createElement('td');
+            problemCell.textContent = `${question.firstNumber} × ${question.secondNumber}`;
+            row.appendChild(problemCell);
+            
+            // Correct answer
+            const correctAnswerCell = document.createElement('td');
+            correctAnswerCell.textContent = question.answer;
+            row.appendChild(correctAnswerCell);
+            
+            // User answer
+            const userAnswerCell = document.createElement('td');
+            userAnswerCell.textContent = question.userAnswer !== null ? question.userAnswer : '-';
+            row.appendChild(userAnswerCell);
+            
+            // Result
+            const resultCell = document.createElement('td');
+            if (question.isCorrect === true) {
+                resultCell.textContent = '✓';
+                resultCell.className = 'correct';
+            } else if (question.isCorrect === false) {
+                resultCell.textContent = '✗';
+                resultCell.className = 'incorrect';
+            } else {
+                resultCell.textContent = '-';
+            }
+            row.appendChild(resultCell);
+            
+            // Add the row to the table
+            this.elements.resultsBody.appendChild(row);
+        });
+        
+        // Show the results summary
+        this.elements.resultsSummary.classList.remove('hidden');
+    }
+    
+    /**
+     * Reset the exercise
+     */
+    resetExercise() {
+        // Play sound
+        this.soundManager.playClickSound();
+        
+        // Hide the results summary
+        this.elements.resultsSummary.classList.add('hidden');
+        
+        // Generate new questions
+        this.generateQuestions();
+    }
+    
+    /**
+     * Toggle the visibility of the history container
+     */
+    toggleHistoryVisibility() {
+        if (this.elements.historyToggle.checked) {
+            this.elements.historyContainer.classList.remove('hidden');
+        } else {
+            this.elements.historyContainer.classList.add('hidden');
+        }
     }
     
     /**
@@ -276,8 +356,8 @@ class UIController {
             this.addHistoryItem(item);
         });
         
-        // Show or hide the history container
-        if (history.length > 0) {
+        // Only show history if toggle is checked and there are items
+        if (this.elements.historyToggle.checked && history.length > 0) {
             this.elements.historyContainer.classList.remove('hidden');
         } else {
             this.elements.historyContainer.classList.add('hidden');

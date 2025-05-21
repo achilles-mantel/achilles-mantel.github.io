@@ -2,8 +2,8 @@
 
 ## Current Status
 - **Phase**: Feature Expansion
-- **Progress**: 75%
-- **Last Updated**: Added Integer Multiplication Exercise feature
+- **Progress**: 80%
+- **Last Updated**: Enhanced Integer Multiplication Exercise with results summary and improved UX
 
 ## What Works
 - Basic project structure has been created
@@ -20,10 +20,11 @@
   - Fixed circular dependency in Formatter class
   - Added error handling for local storage unavailability
   - Improved validation for extreme time values
-- **New Integer Multiplication Exercise Feature**:
+- **Integer Multiplication Exercise Feature**:
   - Generates ten random 3-digit by 3-digit multiplication questions
-  - Shows answers only when a button is clicked
-  - Keeps a history of the questions
+  - Checks answers when Next button is clicked
+  - Shows a summary of results at the end with color-coded feedback
+  - Keeps a history of the questions with toggle to show/hide
   - Compatible with phones and tablets
   - Includes sound effects for engagement
 
@@ -70,6 +71,8 @@
 - Fixed circular dependencies to improve code stability
 - Added Integer Multiplication Exercise as a separate feature to expand educational value
 - Implemented sound effects to enhance user engagement
+- Enhanced Multiplication Exercise with results summary and improved UX based on user feedback
+- Simplified the exercise interface by removing redundant buttons
 
 ## Milestones
 | Milestone | Target Date | Status | Notes |

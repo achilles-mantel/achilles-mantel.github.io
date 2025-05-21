@@ -38,12 +38,45 @@ class Generator {
                 firstNumber,
                 secondNumber,
                 answer,
+                userAnswer: null,
+                isCorrect: null,
                 timestamp: new Date().toISOString()
             });
         }
         
         this.currentIndex = 0;
         return this.questions;
+    }
+    
+    /**
+     * Set the user's answer for the current question
+     * @param {number} userAnswer - The user's answer
+     * @returns {boolean} - Whether the answer is correct
+     */
+    setUserAnswer(userAnswer) {
+        const currentQuestion = this.getCurrentQuestion();
+        if (!currentQuestion) {
+            return false;
+        }
+        
+        // Convert to number to ensure proper comparison
+        const numericAnswer = Number(userAnswer);
+        
+        // Set the user's answer
+        currentQuestion.userAnswer = numericAnswer;
+        
+        // Check if the answer is correct
+        currentQuestion.isCorrect = numericAnswer === currentQuestion.answer;
+        
+        return currentQuestion.isCorrect;
+    }
+    
+    /**
+     * Get the number of correct answers
+     * @returns {number} - Number of correct answers
+     */
+    getCorrectAnswersCount() {
+        return this.questions.filter(q => q.isCorrect === true).length;
     }
     
     /**

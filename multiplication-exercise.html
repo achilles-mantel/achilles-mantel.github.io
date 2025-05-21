@@ -24,7 +24,10 @@
                 <button id="generate-btn" class="primary-btn">Generate 10 New Questions</button>
                 <div class="exercise-info">
                     <span id="current-question">Question: 0/10</span>
-                    <span id="correct-count">Correct: 0</span>
+                    <div class="history-toggle">
+                        <label for="history-toggle-checkbox">Show History:</label>
+                        <input type="checkbox" id="history-toggle-checkbox">
+                    </div>
                 </div>
             </section>
             
@@ -41,9 +44,7 @@
                             <div id="answer" class="answer hidden">56088</div>
                             <div class="user-answer-container">
                                 <input type="number" id="user-answer" class="user-answer-input" placeholder="Enter your answer" aria-label="Your answer">
-                                <button id="check-answer-btn" class="secondary-btn">Check Answer</button>
                             </div>
-                            <button id="show-answer-btn" class="secondary-btn">Show Answer</button>
                         </div>
                     </div>
                     
@@ -52,6 +53,28 @@
                         <button id="next-btn" class="nav-btn">Next</button>
                     </div>
                 </div>
+            </section>
+            
+            <section id="results-summary" class="results-summary hidden">
+                <h2>📊 Exercise Results</h2>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Problem</th>
+                            <th>Correct Answer</th>
+                            <th>Your Answer</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                        <!-- Results will be inserted here dynamically -->
+                    </tbody>
+                </table>
+                <div class="total-score" id="total-score">
+                    Score: <span id="score">0</span>/10
+                </div>
+                <button id="try-again-btn" class="try-again-btn">Try Again</button>
             </section>
             
             <section id="history-container" class="history-container hidden">
