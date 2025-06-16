@@ -7,7 +7,7 @@
 - **CSS3**: Styling and responsive design
 - **JavaScript (ES6+)**: Core programming language for application logic
 - **LocalStorage API**: For saving calculation history
-- **Web Audio API**: For sound effects in the Multiplication Exercise
+- **Web Audio API**: For sound effects in the exercise features
 
 ### Development Tools
 - **Git**: Version control
@@ -21,9 +21,11 @@
    /
    ├── index.html                    # Main HTML file for Time Calculator
    ├── multiplication-exercise.html  # HTML file for Multiplication Exercise
+   ├── division-exercise.html        # HTML file for Division Exercise
    ├── css/                          # CSS styles
    │   ├── styles.css                # Main stylesheet for Time Calculator
-   │   └── multiplication-styles.css # Stylesheet for Multiplication Exercise
+   │   ├── multiplication-styles.css # Stylesheet for Multiplication Exercise
+   │   └── division-styles.css       # Stylesheet for Division Exercise
    ├── js/                           # JavaScript files
    │   ├── app.js                    # Time Calculator entry point
    │   ├── calculator.js             # Calculator logic
@@ -31,8 +33,14 @@
    │   ├── validator.js              # Input validation
    │   ├── storage.js                # Local storage management
    │   ├── ui.js                     # User interface interactions
-   │   └── multiplication/           # Multiplication Exercise modules
-   │       ├── app.js                # Multiplication Exercise entry point
+   │   ├── multiplication/           # Multiplication Exercise modules
+   │   │   ├── app.js                # Multiplication Exercise entry point
+   │   │   ├── generator.js          # Question generator
+   │   │   ├── history-manager.js    # History management
+   │   │   ├── sound-manager.js      # Sound effect management
+   │   │   └── ui-controller.js      # UI interactions
+   │   └── division/                 # Division Exercise modules
+   │       ├── app.js                # Division Exercise entry point
    │       ├── generator.js          # Question generator
    │       ├── history-manager.js    # History management
    │       ├── sound-manager.js      # Sound effect management
@@ -82,6 +90,20 @@
    - Sound effects for button clicks
    - Sound preference management (on/off)
 
+## Division Exercise Logic
+1. **Question Generation**:
+   - Random 4-digit by 1-digit division problems
+   - Ensures all division problems result in whole number answers (no decimals)
+   - Set of 10 questions per exercise session
+   - Navigation between questions (previous/next)
+
+2. **Sound Integration**:
+   - Reuses sound effects from the Multiplication Exercise
+   - Sound effects for generating questions
+   - Sound effects for correct answers
+   - Sound effects for button clicks
+   - Sound preference management (on/off)
+
 ## Data Management
 1. **Time Calculator Storage Schema**:
    ```json
@@ -111,7 +133,21 @@
    ]
    ```
 
-3. **Data Persistence Features**:
+3. **Division Exercise Storage Schema**:
+   ```json
+   [
+     {
+       "id": "unique-id",
+       "firstNumber": 1234,
+       "secondNumber": 2,
+       "answer": 617,
+       "timestamp": "ISO date string",
+       "viewed": true
+     }
+   ]
+   ```
+
+4. **Data Persistence Features**:
    - Automatic saving of calculations and questions to local storage
    - Error handling for when local storage is unavailable
    - Storage quota management
@@ -155,11 +191,12 @@
    - Ability to reload previous calculations
    - Option to delete individual or all history items
 
-4. **Multiplication Exercise UI**:
+4. **Exercise UI Features**:
    - Question display with large, readable numbers
    - Navigation between questions
-   - Show/hide answer functionality
-   - Question history display
+   - Answer input with validation
+   - Results summary with color-coded feedback
+   - Question history display with toggle to show/hide
 
 ## Testing Strategy
 1. **Unit Testing**: Test individual functions for time calculations and formatting
