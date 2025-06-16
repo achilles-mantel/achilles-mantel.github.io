@@ -1,7 +1,7 @@
 # System Patterns
 
 ## System Architecture
-The application is now structured as a unified Math Learning App with three main features: the Time Calculator, the Integer Multiplication Exercise, and the Integer Division Exercise. The architecture follows a hub-and-spoke pattern with index.html as the central navigation hub and each feature as a separate, self-contained module.
+The application is now structured as a unified Math Learning App with four main features: the Time Calculator, the Integer Multiplication Exercise, the Integer Division Exercise, and the Integer Addition Exercise. The architecture follows a hub-and-spoke pattern with index.html as the central navigation hub and each feature as a separate, self-contained module.
 
 ### Overall Application Architecture
 ```mermaid
@@ -9,19 +9,23 @@ graph TD
     INDEX[index.html - Math Learning App Hub] --> TC[time-calc.html - Time Calculator]
     INDEX --> ME[multiplication-exercise.html - Multiplication Exercise]
     INDEX --> DE[division-exercise.html - Division Exercise]
+    INDEX --> AE[addition-exercise.html - Addition Exercise]
     
     TC --> TCM[js/time-calculator/ modules]
     ME --> MEM[js/multiplication/ modules]
     DE --> DEM[js/division/ modules]
+    AE --> AEM[js/addition/ modules]
     
     STYLES[css/styles.css - Global Styles] --> INDEX
     STYLES --> TC
     STYLES --> ME
     STYLES --> DE
+    STYLES --> AE
     
     TCS[css/time-calc-styles.css] --> TC
     MES[css/multiplication-styles.css] --> ME
     DES[css/division-styles.css] --> DE
+    AES[css/addition-styles.css] --> AE
 ```
 
 ### Time Calculator Architecture
@@ -46,6 +50,16 @@ graph TD
 ```
 
 ### Integer Division Exercise Architecture
+```mermaid
+graph TD
+    UICTL[UI Controller] --> Generator[Question Generator]
+    UICTL --> HistoryMgr[History Manager]
+    UICTL --> SoundMgr[Sound Manager]
+    Generator --> HistoryMgr
+    SoundMgr --> UICTL
+```
+
+### Integer Addition Exercise Architecture
 ```mermaid
 graph TD
     UICTL[UI Controller] --> Generator[Question Generator]
@@ -172,6 +186,36 @@ graph TD
    - Handles browser audio API compatibility
    - Reuses sound files from the multiplication exercise
 
+### Integer Addition Exercise Components
+1. **UI Controller**:
+   - Manages the user interface for the addition exercise
+   - Handles DOM interactions and updates
+   - Coordinates between other components
+   - Displays questions and processes user answers
+   - Manages navigation between questions
+   - Shows results summary at the end of the exercise
+   - Handles history visibility toggling
+
+2. **Question Generator**:
+   - Generates random 1-digit by 1-digit addition questions
+   - Manages the current question set
+   - Provides navigation between questions
+   - Calculates answers
+   - Tracks user answers and comparison results
+   - Calculates score based on correct answers
+
+3. **History Manager**:
+   - Saves question history to local storage
+   - Retrieves past questions
+   - Formats timestamps for display
+   - Handles storage errors and quota exceeded issues
+
+4. **Sound Manager**:
+   - Plays sound effects for user interactions
+   - Manages sound preferences (on/off)
+   - Handles browser audio API compatibility
+   - Reuses sound files from existing exercises
+
 ## Critical Implementation Paths
 1. **Time Parsing and Validation**:
    - Parse user input into standardized time format
@@ -211,7 +255,14 @@ graph TD
    - Create question objects with unique IDs
    - Manage question set navigation
 
-7. **Sound Effect Integration**:
+7. **Addition Question Generation**:
+   - Generate random 1-digit numbers (1-9)
+   - Calculate addition results
+   - Create question objects with unique IDs
+   - Manage question set navigation
+   - Ensure appropriate difficulty level for young learners
+
+8. **Sound Effect Integration**:
    - Load and play sound effects at appropriate times
    - Handle browser audio API limitations
    - Provide fallbacks when audio is not supported
@@ -238,7 +289,7 @@ graph TD
 
 ## Feature Integration
 1. **Navigation Between Features**:
-   - Links between Time Calculator, Multiplication Exercise, and Division Exercise
+   - Links between Time Calculator, Multiplication Exercise, Division Exercise, and Addition Exercise
    - Consistent UI elements across features
    - Shared styling patterns for cohesive experience
 
@@ -246,4 +297,4 @@ graph TD
    - Common CSS variables for consistent styling
    - Similar error handling approaches
    - Consistent local storage management patterns
-   - Shared sound effect files
+   - Shared sound effect files across all exercise features

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addition Exercise - Math Learning App</title>
+    <meta name="description" content="Practice 1-digit by 1-digit addition with this interactive exercise.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/addition-styles.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>➕</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="breadcrumb-nav">
+                <a href="index.html" class="back-link">← Back to Math App</a>
+            </nav>
+            <h1>➕ Addition Exercise ➕</h1>
+            <p class="subtitle">Practice 1-digit by 1-digit addition</p>
+        </header>
+        
+        <main>
+            <section class="exercise-controls">
+                <button id="generate-btn" class="primary-btn">Generate 10 New Questions</button>
+                <div class="exercise-info">
+                    <span id="current-question">Question: 0/10</span>
+                    <div class="history-toggle">
+                        <label for="history-toggle-checkbox">Show History:</label>
+                        <input type="checkbox" id="history-toggle-checkbox">
+                    </div>
+                </div>
+            </section>
+            
+            <section id="exercise-container" class="exercise-container hidden">
+                <div class="question-card">
+                    <h2>Question <span id="question-number">1</span></h2>
+                    
+                    <div class="addition-problem">
+                        <div class="number" id="first-number">1</div>
+                        <div class="operation">+</div>
+                        <div class="number" id="second-number">2</div>
+                        <div class="line"></div>
+                        <div class="answer-container">
+                            <div id="answer" class="answer hidden">3</div>
+                            <div class="user-answer-container">
+                                <input type="number" id="user-answer" class="user-answer-input" placeholder="Enter your answer" aria-label="Your answer">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="navigation-buttons">
+                        <button id="prev-btn" class="nav-btn" disabled>Previous</button>
+                        <button id="next-btn" class="nav-btn">Next</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="results-summary" class="results-summary hidden">
+                <h2>📊 Exercise Results</h2>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Problem</th>
+                            <th>Correct Answer</th>
+                            <th>Your Answer</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                        <!-- Results will be inserted here dynamically -->
+                    </tbody>
+                </table>
+                <div class="total-score" id="total-score">
+                    Score: <span id="score">0</span>/10
+                </div>
+                <button id="try-again-btn" class="try-again-btn">Try Again</button>
+            </section>
+            
+            <section id="history-container" class="history-container hidden">
+                <h2>📝 Exercise History</h2>
+                <div id="history-list" class="history-list"></div>
+                <button id="clear-history-btn" class="clear-btn">Clear History</button>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Addition Exercise - Part of the Math Learning App</p>
+        </footer>
+    </div>
+    
+    <!-- Audio elements for sound effects -->
+    <audio id="generate-sound" src="assets/sounds/generate.mp3" preload="auto"></audio>
+    <audio id="correct-sound" src="assets/sounds/correct.mp3" preload="auto"></audio>
+    <audio id="button-click" src="assets/sounds/click.mp3" preload="auto"></audio>
+    
+    <!-- JavaScript Files -->
+    <script src="js/addition/generator.js"></script>
+    <script src="js/addition/ui-controller.js"></script>
+    <script src="js/addition/history-manager.js"></script>
+    <script src="js/addition/sound-manager.js"></script>
+    <script src="js/addition/app.js"></script>
+</body>
+</html>

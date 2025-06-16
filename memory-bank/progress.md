@@ -35,6 +35,13 @@
   - Keeps a history of the questions with toggle to show/hide
   - Compatible with phones and tablets
   - Reuses sound effect infrastructure from Multiplication Exercise
+- **Integer Addition Exercise Feature**:
+  - Generates ten random 1-digit by 1-digit addition questions
+  - Checks answers when Next button is clicked
+  - Shows a summary of results at the end with color-coded feedback
+  - Keeps a history of the questions with toggle to show/hide
+  - Compatible with phones and tablets
+  - Reuses sound effect infrastructure from existing exercises
 
 ## What's Left to Build
 1. **Testing**:
