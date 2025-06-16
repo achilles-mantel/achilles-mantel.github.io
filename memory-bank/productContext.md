@@ -1,10 +1,11 @@
 # Product Context
 
 ## Purpose
-The application is designed to help early childhood educators, parents, and children aged 5-10 years old with educational math tools. It serves as both an educational platform and a practical utility with two main features:
+The Math Learning App is designed to help early childhood educators, parents, and children aged 5-10 with comprehensive educational math tools. It serves as a unified educational platform with three main features:
 
 1. **Time Calculator**: Helps perform time calculations easily for everyday time-related tasks
 2. **Integer Multiplication Exercise**: Provides practice with 3-digit by 3-digit multiplication problems
+3. **Integer Division Exercise**: Provides practice with 4-digit by 1-digit division problems
 
 ## Problems Solved
 1. **Educational Support**: Helps children learn time concepts and multiplication skills through interactive exercises

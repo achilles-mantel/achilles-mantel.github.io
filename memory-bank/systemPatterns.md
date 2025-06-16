@@ -1,7 +1,28 @@
 # System Patterns
 
 ## System Architecture
-The application now consists of three main features: the Time Calculator, the Integer Multiplication Exercise, and the Integer Division Exercise. All follow a similar client-side architecture pattern but are implemented as separate modules.
+The application is now structured as a unified Math Learning App with three main features: the Time Calculator, the Integer Multiplication Exercise, and the Integer Division Exercise. The architecture follows a hub-and-spoke pattern with index.html as the central navigation hub and each feature as a separate, self-contained module.
+
+### Overall Application Architecture
+```mermaid
+graph TD
+    INDEX[index.html - Math Learning App Hub] --> TC[time-calc.html - Time Calculator]
+    INDEX --> ME[multiplication-exercise.html - Multiplication Exercise]
+    INDEX --> DE[division-exercise.html - Division Exercise]
+    
+    TC --> TCM[js/time-calculator/ modules]
+    ME --> MEM[js/multiplication/ modules]
+    DE --> DEM[js/division/ modules]
+    
+    STYLES[css/styles.css - Global Styles] --> INDEX
+    STYLES --> TC
+    STYLES --> ME
+    STYLES --> DE
+    
+    TCS[css/time-calc-styles.css] --> TC
+    MES[css/multiplication-styles.css] --> ME
+    DES[css/division-styles.css] --> DE
+```
 
 ### Time Calculator Architecture
 ```mermaid

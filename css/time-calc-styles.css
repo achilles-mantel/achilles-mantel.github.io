@@ -1,0 +1,101 @@
+/* 
+ * Time Calculator Specific Styles
+ * 
+ * Additional styles specific to the Time Calculator feature
+ */
+
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    transition: var(--transition);
+    border: 2px solid var(--primary-color);
+}
+
+.back-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateX(-2px);
+}
+
+/* Time Calculator Specific Overrides */
+.calculator {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 3px solid var(--secondary-color);
+}
+
+/* Enhanced input styling for time calculator */
+input[type="text"] {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 190, 11, 0.3);
+}
+
+/* Time-specific result styling */
+#result-text {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    display: inline-block;
+    min-width: 200px;
+}
+
+/* Enhanced history for time calculations */
+.history-calculation {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+/* Time calculator specific animations */
+.result.time-result {
+    border-color: var(--accent-color);
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+}
+
+/* Mobile responsiveness for time calculator */
+@media (max-width: 768px) {
+    .breadcrumb-nav {
+        margin-bottom: 15px;
+    }
+    
+    .back-link {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    #result-text {
+        font-size: 1.5rem;
+        min-width: 150px;
+        letter-spacing: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    #result-text {
+        font-size: 1.2rem;
+        min-width: 120px;
+        letter-spacing: 0.5px;
+    }
+}

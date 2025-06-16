@@ -63,6 +63,31 @@ header {
     margin-bottom: 15px;
 }
 
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    transition: var(--transition);
+    border: 2px solid var(--primary-color);
+}
+
+.back-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateX(-2px);
+}
+
 nav {
     margin-top: 20px;
 }
