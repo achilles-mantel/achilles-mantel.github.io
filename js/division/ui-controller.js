@@ -32,6 +32,7 @@ class UIController {
             historyList: document.getElementById('history-list'),
             clearHistoryBtn: document.getElementById('clear-history-btn'),
             historyToggle: document.getElementById('history-toggle-checkbox'),
+            decimalToggle: document.getElementById('decimal-toggle-checkbox'),
             resultsSummary: document.getElementById('results-summary'),
             resultsBody: document.getElementById('results-body'),
             score: document.getElementById('score'),
@@ -92,6 +93,10 @@ class UIController {
     generateQuestions() {
         // Play sound
         this.soundManager.playGenerateSound();
+        
+        // Set decimal mode based on checkbox
+        const allowDecimals = this.elements.decimalToggle.checked;
+        this.generator.setAllowDecimals(allowDecimals);
         
         // Generate questions
         const questions = this.generator.generateQuestionSet();

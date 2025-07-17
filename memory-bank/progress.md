@@ -29,11 +29,13 @@
   - Includes sound effects for engagement
 - **Integer Division Exercise Feature**:
   - Generates ten random 4-digit by 1-digit division questions
-  - Ensures all division problems result in whole number answers (no decimals)
-  - Checks answers when Next button is clicked
+  - **NEW**: Added "Allow Decimals" checkbox to enable division problems with decimal results
+  - When decimals are disabled: Ensures all division problems result in whole number answers
+  - When decimals are enabled: Generates problems that result in decimal answers (rounded to 2 decimal places)
+  - Checks answers when Next button is clicked with proper decimal validation
   - Shows a summary of results at the end with color-coded feedback
   - Keeps a history of the questions with toggle to show/hide
-  - Compatible with phones and tablets
+  - Compatible with phones and tablets with responsive design for new options
   - Reuses sound effect infrastructure from Multiplication Exercise
 - **Integer Addition Exercise Feature**:
   - Generates ten random 1-digit by 1-digit addition questions

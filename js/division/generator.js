@@ -11,10 +11,19 @@ class Generator {
     constructor() {
         this.questions = [];
         this.currentIndex = 0;
+        this.allowDecimals = false;
     }
     
     /**
-     * Generate a random 4-digit number that is divisible by the divisor
+     * Set whether to allow decimal results
+     * @param {boolean} allowDecimals - Whether to allow decimal results
+     */
+    setAllowDecimals(allowDecimals) {
+        this.allowDecimals = allowDecimals;
+    }
+    
+    /**
+     * Generate a random 4-digit number that is divisible by the divisor (for integer division)
      * @param {number} divisor - The divisor (1-9)
      * @returns {number} - Random 4-digit number that is divisible by the divisor
      */
@@ -25,6 +34,25 @@ class Generator {
         // Calculate the dividend by multiplying the quotient by the divisor
         // This ensures the division will result in a whole number
         return quotient * divisor;
+    }
+    
+    /**
+     * Generate a random 4-digit number for decimal division
+     * @param {number} divisor - The divisor (1-9)
+     * @returns {number} - Random 4-digit number
+     */
+    generateDecimalDividend(divisor) {
+        // Generate a random 4-digit number (1000-9999)
+        return Math.floor(Math.random() * 9000) + 1000;
+    }
+    
+    /**
+     * Round a number to 2 decimal places
+     * @param {number} num - The number to round
+     * @returns {number} - The rounded number
+     */
+    roundToTwoDecimals(num) {
+        return Math.round(num * 100) / 100;
     }
     
     /**
@@ -44,8 +72,17 @@ class Generator {
         
         for (let i = 0; i < 10; i++) {
             const divisor = this.generateDivisor();
-            const dividend = this.generateDividend(divisor);
-            const answer = dividend / divisor;
+            let dividend, answer;
+            
+            if (this.allowDecimals) {
+                // Generate decimal division problems
+                dividend = this.generateDecimalDividend(divisor);
+                answer = this.roundToTwoDecimals(dividend / divisor);
+            } else {
+                // Generate integer division problems
+                dividend = this.generateDividend(divisor);
+                answer = dividend / divisor;
+            }
             
             this.questions.push({
                 id: Date.now() + i, // Unique ID
@@ -80,7 +117,14 @@ class Generator {
         currentQuestion.userAnswer = numericAnswer;
         
         // Check if the answer is correct
-        currentQuestion.isCorrect = numericAnswer === currentQuestion.answer;
+        // For decimal answers, round both to 2 decimal places for comparison
+        if (this.allowDecimals) {
+            const roundedUserAnswer = this.roundToTwoDecimals(numericAnswer);
+            const roundedCorrectAnswer = this.roundToTwoDecimals(currentQuestion.answer);
+            currentQuestion.isCorrect = roundedUserAnswer === roundedCorrectAnswer;
+        } else {
+            currentQuestion.isCorrect = numericAnswer === currentQuestion.answer;
+        }
         
         return currentQuestion.isCorrect;
     }

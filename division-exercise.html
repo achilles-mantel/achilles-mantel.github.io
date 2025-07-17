@@ -17,7 +17,7 @@
                 <a href="index.html" class="back-link">← Back to Math App</a>
             </nav>
             <h1>➗ Thirdy's Division Exercise ➗</h1>
-            <p class="subtitle">Practice 4-digit by 1-digit integer division</p>
+            <p class="subtitle">Practice 4-digit by 1-digit division (integer and decimal)</p>
         </header>
         
         <main>
@@ -25,9 +25,15 @@
                 <button id="generate-btn" class="primary-btn">Generate 10 New Questions</button>
                 <div class="exercise-info">
                     <span id="current-question">Question: 0/10</span>
-                    <div class="history-toggle">
-                        <label for="history-toggle-checkbox">Show History:</label>
-                        <input type="checkbox" id="history-toggle-checkbox">
+                    <div class="options-container">
+                        <div class="decimal-toggle">
+                            <label for="decimal-toggle-checkbox">Allow Decimals:</label>
+                            <input type="checkbox" id="decimal-toggle-checkbox">
+                        </div>
+                        <div class="history-toggle">
+                            <label for="history-toggle-checkbox">Show History:</label>
+                            <input type="checkbox" id="history-toggle-checkbox">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -44,7 +50,7 @@
                         <div class="answer-container">
                             <div id="answer" class="answer hidden">617</div>
                             <div class="user-answer-container">
-                                <input type="number" id="user-answer" class="user-answer-input" placeholder="Enter your answer" aria-label="Your answer">
+                                <input type="number" id="user-answer" class="user-answer-input" placeholder="Enter your answer" aria-label="Your answer" step="0.01">
                             </div>
                         </div>
                     </div>
