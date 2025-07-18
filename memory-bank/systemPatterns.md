@@ -1,7 +1,7 @@
 # System Patterns
 
 ## System Architecture
-The application is now structured as a unified Math Learning App with four main features: the Time Calculator, the Integer Multiplication Exercise, the Integer Division Exercise, and the Integer Addition Exercise. The architecture follows a hub-and-spoke pattern with index.html as the central navigation hub and each feature as a separate, self-contained module.
+The application is now structured as a unified Math Learning App with five main features: the Time Calculator, the Integer Multiplication Exercise, the Integer Division Exercise, the Integer Addition Exercise, and the Integer Subtraction Exercise. The architecture follows a hub-and-spoke pattern with index.html as the central navigation hub and each feature as a separate, self-contained module.
 
 ### Overall Application Architecture
 ```mermaid
@@ -10,22 +10,26 @@ graph TD
     INDEX --> ME[multiplication-exercise.html - Multiplication Exercise]
     INDEX --> DE[division-exercise.html - Division Exercise]
     INDEX --> AE[addition-exercise.html - Addition Exercise]
+    INDEX --> SE[subtraction-exercise.html - Subtraction Exercise]
     
     TC --> TCM[js/time-calculator/ modules]
     ME --> MEM[js/multiplication/ modules]
     DE --> DEM[js/division/ modules]
     AE --> AEM[js/addition/ modules]
+    SE --> SEM[js/subtraction/ modules]
     
     STYLES[css/styles.css - Global Styles] --> INDEX
     STYLES --> TC
     STYLES --> ME
     STYLES --> DE
     STYLES --> AE
+    STYLES --> SE
     
     TCS[css/time-calc-styles.css] --> TC
     MES[css/multiplication-styles.css] --> ME
     DES[css/division-styles.css] --> DE
     AES[css/addition-styles.css] --> AE
+    SES[css/subtraction-styles.css] --> SE
 ```
 
 ### Time Calculator Architecture
@@ -60,6 +64,16 @@ graph TD
 ```
 
 ### Integer Addition Exercise Architecture
+```mermaid
+graph TD
+    UICTL[UI Controller] --> Generator[Question Generator]
+    UICTL --> HistoryMgr[History Manager]
+    UICTL --> SoundMgr[Sound Manager]
+    Generator --> HistoryMgr
+    SoundMgr --> UICTL
+```
+
+### Integer Subtraction Exercise Architecture
 ```mermaid
 graph TD
     UICTL[UI Controller] --> Generator[Question Generator]
@@ -216,6 +230,37 @@ graph TD
    - Handles browser audio API compatibility
    - Reuses sound files from existing exercises
 
+### Integer Subtraction Exercise Components
+1. **UI Controller**:
+   - Manages the user interface for the subtraction exercise
+   - Handles DOM interactions and updates
+   - Coordinates between other components
+   - Displays questions and processes user answers
+   - Manages navigation between questions
+   - Shows results summary at the end of the exercise
+   - Handles history visibility toggling
+
+2. **Question Generator**:
+   - Generates random 1-digit by 1-digit subtraction questions
+   - Ensures no negative results by making first number always larger than or equal to second number
+   - Manages the current question set
+   - Provides navigation between questions
+   - Calculates answers
+   - Tracks user answers and comparison results
+   - Calculates score based on correct answers
+
+3. **History Manager**:
+   - Saves question history to local storage
+   - Retrieves past questions
+   - Formats timestamps for display
+   - Handles storage errors and quota exceeded issues
+
+4. **Sound Manager**:
+   - Plays sound effects for user interactions
+   - Manages sound preferences (on/off)
+   - Handles browser audio API compatibility
+   - Reuses sound files from existing exercises
+
 ## Critical Implementation Paths
 1. **Time Parsing and Validation**:
    - Parse user input into standardized time format
@@ -262,7 +307,15 @@ graph TD
    - Manage question set navigation
    - Ensure appropriate difficulty level for young learners
 
-8. **Sound Effect Integration**:
+8. **Subtraction Question Generation**:
+   - Generate random 1-digit numbers (1-9)
+   - Ensure first number is always larger than or equal to second number to avoid negative results
+   - Calculate subtraction results
+   - Create question objects with unique IDs
+   - Manage question set navigation
+   - Ensure appropriate difficulty level for young learners
+
+9. **Sound Effect Integration**:
    - Load and play sound effects at appropriate times
    - Handle browser audio API limitations
    - Provide fallbacks when audio is not supported
@@ -289,7 +342,7 @@ graph TD
 
 ## Feature Integration
 1. **Navigation Between Features**:
-   - Links between Time Calculator, Multiplication Exercise, Division Exercise, and Addition Exercise
+   - Links between Time Calculator, Multiplication Exercise, Division Exercise, Addition Exercise, and Subtraction Exercise
    - Consistent UI elements across features
    - Shared styling patterns for cohesive experience
 

@@ -1,9 +1,10 @@
 # Active Context
 
 ## Current Work Focus
-- **COMPLETED**: Major refactoring to transform the application from "Time Calculator with Multiplication and Division Features" to "Math Learning App with Time Calculator, Multiplication, Division, and Addition Exercise Features"
+- **COMPLETED**: Major refactoring to transform the application from "Time Calculator with Multiplication and Division Features" to "Math Learning App with Time Calculator, Multiplication, Division, Addition, and Subtraction Exercise Features"
 - Application architecture now properly reflects a unified math learning platform
 - **COMPLETED**: Added Integer Addition Exercise feature
+- **COMPLETED**: Added Integer Subtraction Exercise feature
 - Preparing for testing phase
 - Planning additional educational enhancements
 
@@ -52,6 +53,17 @@
   - Integrated sound effects for user engagement (reusing existing sound files)
   - Created navigation links from main index and within the exercise
   - Follows established patterns from multiplication and division exercises
+- **Added Integer Subtraction Exercise feature**:
+  - Created new HTML, CSS, and JavaScript files for the feature with red color scheme
+  - Implemented random 1-digit by 1-digit subtraction question generation
+  - Ensured no negative results by making first number always larger than or equal to second number
+  - Implemented question history tracking with toggle to show/hide
+  - Added results summary with color-coded feedback for correct/incorrect answers
+  - Added responsive design for phones and tablets
+  - Integrated sound effects for user engagement (reusing existing sound files)
+  - Created navigation links from main index and within the exercise
+  - Follows established patterns from other math exercises
+  - Updated main index.html to include subtraction exercise card and description
 
 ## Next Steps
 1. **Testing**:

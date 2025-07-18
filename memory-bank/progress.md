@@ -44,6 +44,15 @@
   - Keeps a history of the questions with toggle to show/hide
   - Compatible with phones and tablets
   - Reuses sound effect infrastructure from existing exercises
+- **Integer Subtraction Exercise Feature**:
+  - Generates ten random 1-digit by 1-digit subtraction questions
+  - Ensures no negative results by making first number always larger than or equal to second number
+  - Checks answers when Next button is clicked
+  - Shows a summary of results at the end with color-coded feedback
+  - Keeps a history of the questions with toggle to show/hide
+  - Compatible with phones and tablets with red color scheme
+  - Reuses sound effect infrastructure from existing exercises
+  - Updated main index.html to include subtraction exercise navigation
 
 ## What's Left to Build
 1. **Testing**:
@@ -104,6 +113,8 @@
 | Bug Fixes | Completed | ✅ Done | Fixed circular dependency, storage handling, and validation |
 | Feature Expansion - Multiplication | Completed | ✅ Done | Added Integer Multiplication Exercise |
 | Feature Expansion - Division | Completed | ✅ Done | Added Integer Division Exercise |
+| Feature Expansion - Addition | Completed | ✅ Done | Added Integer Addition Exercise |
+| Feature Expansion - Subtraction | Completed | ✅ Done | Added Integer Subtraction Exercise |
 | Testing & Refinement | TBD | Not Started | Need to implement tests |
 | Educational Enhancements | In Progress | Partial | Sound effects added, more features planned |
 | Final Delivery | TBD | Not Started | Complete project |
