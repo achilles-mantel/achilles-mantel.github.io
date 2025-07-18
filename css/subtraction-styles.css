@@ -1,0 +1,490 @@
+/**
+ * Subtraction Exercise Styles
+ * 
+ * Specific styles for the subtraction exercise feature.
+ * Builds upon the base styles in styles.css.
+ */
+
+/* Exercise-specific color scheme */
+:root {
+    --subtraction-primary: #e74c3c;
+    --subtraction-secondary: #c0392b;
+    --subtraction-light: #fadbd8;
+    --subtraction-accent: #f1948a;
+}
+
+/* Header styling */
+header h1 {
+    color: var(--subtraction-primary);
+    text-shadow: 2px 2px 4px rgba(231, 76, 60, 0.3);
+}
+
+/* Primary button styling */
+.primary-btn {
+    background: linear-gradient(135deg, var(--subtraction-primary), var(--subtraction-secondary));
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.primary-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
+}
+
+/* Exercise controls */
+.exercise-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--subtraction-light);
+    border-radius: 15px;
+    border: 2px solid var(--subtraction-accent);
+}
+
+.exercise-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-weight: bold;
+    color: var(--subtraction-secondary);
+}
+
+.history-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.history-toggle input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: var(--subtraction-primary);
+}
+
+/* Question card */
+.question-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.15);
+    border: 3px solid var(--subtraction-accent);
+    margin-bottom: 2rem;
+}
+
+.question-card h2 {
+    color: var(--subtraction-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+/* Subtraction problem layout */
+.subtraction-problem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 2rem 0;
+    color: var(--subtraction-secondary);
+}
+
+.subtraction-problem .number {
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    background: var(--subtraction-light);
+    border-radius: 12px;
+    border: 2px solid var(--subtraction-accent);
+    min-width: 80px;
+    text-align: center;
+}
+
+.subtraction-problem .operation {
+    font-size: 4rem;
+    color: var(--subtraction-primary);
+    margin: 0.5rem 0;
+    text-shadow: 2px 2px 4px rgba(231, 76, 60, 0.3);
+}
+
+.subtraction-problem .line {
+    width: 200px;
+    height: 4px;
+    background: var(--subtraction-primary);
+    margin: 1rem 0;
+    border-radius: 2px;
+}
+
+.answer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.answer {
+    padding: 0.5rem 1rem;
+    background: var(--success-color);
+    color: white;
+    border-radius: 12px;
+    font-size: 2.5rem;
+    min-width: 80px;
+    text-align: center;
+}
+
+.user-answer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-answer-input {
+    font-size: 2.5rem;
+    padding: 0.5rem 1rem;
+    border: 3px solid var(--subtraction-accent);
+    border-radius: 12px;
+    text-align: center;
+    min-width: 120px;
+    background: white;
+    color: var(--subtraction-secondary);
+    font-weight: bold;
+}
+
+.user-answer-input:focus {
+    outline: none;
+    border-color: var(--subtraction-primary);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+}
+
+.user-answer-input.correct {
+    border-color: var(--success-color);
+    background: var(--success-light);
+}
+
+.user-answer-input.incorrect {
+    border-color: var(--error-color);
+    background: var(--error-light);
+}
+
+/* Navigation buttons */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.nav-btn {
+    background: linear-gradient(135deg, var(--subtraction-accent), var(--subtraction-primary));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 150px;
+}
+
+.nav-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.nav-btn:disabled {
+    background: var(--disabled-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Results summary */
+.results-summary {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.15);
+    border: 3px solid var(--subtraction-accent);
+    margin-bottom: 2rem;
+}
+
+.results-summary h2 {
+    color: var(--subtraction-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.results-table th {
+    background: var(--subtraction-primary);
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.results-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--subtraction-accent);
+}
+
+.results-table tr:nth-child(even) {
+    background: var(--subtraction-light);
+}
+
+.result-correct {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+.result-incorrect {
+    color: var(--error-color);
+    font-weight: bold;
+}
+
+.total-score {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--subtraction-primary);
+    margin-bottom: 1.5rem;
+}
+
+.try-again-btn {
+    background: linear-gradient(135deg, var(--subtraction-primary), var(--subtraction-secondary));
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.try-again-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+/* History container */
+.history-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.15);
+    border: 3px solid var(--subtraction-accent);
+    margin-bottom: 2rem;
+}
+
+.history-container h2 {
+    color: var(--subtraction-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.history-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+}
+
+.history-item {
+    background: var(--subtraction-light);
+    border: 2px solid var(--subtraction-accent);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.history-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--subtraction-secondary);
+}
+
+.history-item-score {
+    font-size: 1.1rem;
+}
+
+.history-item-timestamp {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.clear-btn {
+    background: var(--error-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.clear-btn:hover {
+    background: var(--error-dark);
+    transform: translateY(-2px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .exercise-controls {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .exercise-info {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .subtraction-problem {
+        font-size: 2.5rem;
+    }
+    
+    .subtraction-problem .operation {
+        font-size: 3rem;
+    }
+    
+    .user-answer-input {
+        font-size: 2rem;
+        min-width: 100px;
+    }
+    
+    .answer {
+        font-size: 2rem;
+        min-width: 60px;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+    }
+    
+    .nav-btn {
+        max-width: none;
+    }
+    
+    .results-table {
+        font-size: 0.9rem;
+    }
+    
+    .results-table th,
+    .results-table td {
+        padding: 8px 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .question-card {
+        padding: 1.5rem;
+    }
+    
+    .subtraction-problem {
+        font-size: 2rem;
+    }
+    
+    .subtraction-problem .operation {
+        font-size: 2.5rem;
+    }
+    
+    .user-answer-input {
+        font-size: 1.8rem;
+        min-width: 80px;
+    }
+    
+    .answer {
+        font-size: 1.8rem;
+        min-width: 50px;
+    }
+    
+    .subtraction-problem .line {
+        width: 150px;
+    }
+    
+    .results-table {
+        font-size: 0.8rem;
+    }
+    
+    .results-table th,
+    .results-table td {
+        padding: 6px 2px;
+    }
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+/* Animation for question transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.question-card.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Success and error feedback */
+.feedback-correct {
+    background: var(--success-light);
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+
+.feedback-incorrect {
+    background: var(--error-light);
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
